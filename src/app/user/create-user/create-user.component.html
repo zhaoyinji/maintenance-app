@@ -1,0 +1,122 @@
+<div class="row" *ngIf="errorMessage && !actionSucceed">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 text-center">
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
+</div>
+<div class="row" *ngIf="actionSucceed">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 text-center">
+    <div class="alert alert-success">User created, confirm email has been sent</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3">
+    <form class="text-center jumbotron" (ngSubmit)="onSubmit()" #usrForm="ngForm">
+      <div class="form-group">
+        <label
+          for="username"
+          class="control-label">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          ngModel
+          class="form-control text-center"
+          required>
+      </div>
+      <div class="form-group">
+        <label
+          for="email"
+          class="control-label">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          ngModel
+          class="form-control text-center"
+          required
+          email>
+      </div>
+      <div class="form-group">
+        <label
+          for="name"
+          class="control-label">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          ngModel
+          class="form-control text-center"
+          required>
+      </div>
+      <div class="form-group">
+        <label
+          for="confirmPassword"
+          class="control-label">Maintenace User
+        <input
+          type="radio"
+          id="maintenanceUser"
+          name="userType"
+          ngModel
+          class="form-control text-center"
+          value="maintenanceUser"
+          checked="checked"
+          >
+        </label>
+          <label
+          for="confirmPassword"
+          class="control-label">Service User
+        <input
+          type="radio"
+          id="serviceUser"
+          name="userType"
+          ngModel
+          class="form-control text-center"
+          value="serviceUser"
+          >
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit"
+              [disabled]="usrForm.invalid">Submit
+      </button>
+    </form>
+    <div class="loader" *ngIf="isLoading"></div>
+  </div>
+</div>
+<div class="row" *ngIf="!confirmUser" style="display:none">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 text-center">
+    <button class="btn btn-default" (click)="onDoConfirm()">Confirm User</button>
+  </div>
+</div>
+<div class="row" *ngIf="confirmUser">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3">
+    <form #confirmForm="ngForm" (ngSubmit)="onConfirm(confirmForm.value)" class="jumbotron text-center">
+      <div class="form-group">
+        <label
+          for="usrName"
+          class="control-label">Username</label>
+        <input
+          type="text"
+          id="usrName"
+          name="usrName"
+          ngModel
+          class="form-control text-center"
+          required>
+      </div>
+      <div class="form-group">
+        <label
+          for="validationCode"
+          class="control-label">Validation Code</label>
+        <input
+          type="text"
+          id="validationCode"
+          name="validationCode"
+          ngModel
+          class="form-control text-center"
+          required>
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="confirmForm.invalid || isSending">Confirm your Account</button>
+    </form>
+    <div class="loader" *ngIf="isLoading"></div>
+  </div>
+</div>
+
