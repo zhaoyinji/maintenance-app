@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,23 +8,22 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-  confirmUser = false;
   errorMessage = '';
   actionSucceed = false;
   isSending = false;
   @ViewChild('usrForm') form: NgForm;
 
-  constructor(private authService: AuthService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.authService.errorMessage.subscribe(
+    this.userService.errorMessage.subscribe(
       (errorMessage: string) => {
         this.isSending = false;
         this.errorMessage = errorMessage;
       }
     );
-    this.authService.actionSucceed.subscribe(
+    this.userService.actionSucceed.subscribe(
       (actionSucceed: boolean) => {
         this.isSending = false;
         this.actionSucceed = actionSucceed;
@@ -39,14 +38,6 @@ export class CreateUserComponent implements OnInit {
     const name = this.form.value.name;
     const userType = this.form.value.userType;
     this.isSending = true;
-    this.authService.createUser(usrName, email, name, userType);
-  }
-
-  onDoConfirm() {
-    this.confirmUser = true;
-  }
-
-  onConfirm(formValue: { usrName: string, validationCode: string }) {
-    this.authService.confirmUser(formValue.usrName, formValue.validationCode);
+    this.userService.createUser(usrName, email, name, userType);
   }
 }
