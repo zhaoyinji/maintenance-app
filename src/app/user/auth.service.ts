@@ -24,6 +24,7 @@ export class AuthService {
   unconfirmedUser = new BehaviorSubject<CognitoUser>(null);
   errorMessage = new BehaviorSubject<string>('');
   actionSucceed = new BehaviorSubject<boolean>(false);
+  isSuperAdmin = new BehaviorSubject<boolean>(false);
   registeredUser: CognitoUser;
 
   constructor(
@@ -151,6 +152,7 @@ export class AuthService {
   logout() {
     this.getAuthenticatedUser().signOut();
     this.authStatusChanged.next(false);
+    this.isSuperAdmin.next(false);
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -165,6 +167,14 @@ export class AuthService {
           } else {
             if (session.isValid()) {
               observer.next(true);
+              const payload = session.getIdToken().decodePayload();
+              const groups: string[] = payload['cognito:groups'];
+              const superAdmin = groups.find((group) => group === 'SuperAdmin');
+              if (superAdmin) {
+                this.isSuperAdmin.next(true);
+              } else {
+                this.isSuperAdmin.next(false);
+              }
             } else {
               observer.next(false);
             }
@@ -200,28 +210,6 @@ export class AuthService {
           }
         });
       }
-      observer.complete();
-    });
-    return obs;
-  }
-
-  isSuperAdmin(): Observable<boolean> {
-    const obs = Observable.create((observer) => {
-      this.getSessionInfo().subscribe((session) => {
-        if (session === null) {
-          observer.next(false);
-        } else {
-          const payload = session.getIdToken().decodePayload();
-          const groups: string[] = payload['cognito:groups'];
-          const superAdmin = groups.find((group) => group === 'SuperAdmin');
-          console.log('superAdmin', superAdmin);
-          if (superAdmin) {
-            observer.next(true);
-          } else {
-            observer.next(false);
-          }
-        }
-      });
       observer.complete();
     });
     return obs;

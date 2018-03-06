@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       }
     );
     this.authService.initAuth();
-    this.authService.isSuperAdmin().subscribe((isSuperAdmin) => this.isSuperAdmin = isSuperAdmin);
+    this.authService.isSuperAdmin.subscribe((isSuperAdmin) => this.isSuperAdmin = isSuperAdmin);
   }
 
   onLogout() {
