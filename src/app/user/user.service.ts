@@ -21,13 +21,13 @@ export class UserService {
     private authService: AuthService,
     private http: Http) {}
 
-  createUser(username: string, email: string, name: string, userType: string): void {
+  createUser(user: User): void {
     this.authService.getAuthenticatedUser().getSession((err, session) => {
       const userData = {
-        username,
-        email,
-        name,
-        userType
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        userType: user.userType
       };
      
       const queryParam = '?accessToken=' + session.getAccessToken().getJwtToken();

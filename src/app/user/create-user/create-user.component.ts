@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../user.service';
 import { NgForm } from '@angular/forms';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-create-user',
@@ -33,11 +34,13 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit() {
-    const usrName = this.form.value.username;
-    const email = this.form.value.email;
-    const name = this.form.value.name;
-    const userType = this.form.value.userType;
+    const user: User = {
+      username: this.form.value.username,
+      email: this.form.value.email,
+      name: this.form.value.name,
+      userType: this.form.value.userType
+    }
     this.isSending = true;
-    this.userService.createUser(usrName, email, name, userType);
+    this.userService.createUser(user);
   }
 }

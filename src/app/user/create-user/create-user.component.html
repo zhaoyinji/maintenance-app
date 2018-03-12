@@ -9,75 +9,44 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3">
-    <form class="text-center jumbotron" (ngSubmit)="onSubmit()" #usrForm="ngForm">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 well">
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #usrForm="ngForm">
       <div class="form-group">
-        <label
-          for="username"
-          class="control-label">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          ngModel
-          class="form-control text-center"
-          required>
+        <label for="username" class="control-label col-sm-3">Username:</label>
+        <div class="col-sm-9">
+          <input type="text" id="username" name="username" ngModel class="form-control" required>
+        </div>
       </div>
       <div class="form-group">
-        <label
-          for="email"
-          class="control-label">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          ngModel
-          class="form-control text-center"
-          required
-          email>
+        <label for="email" class="control-label col-sm-3">E-mail:</label>
+        <div class="col-sm-9">
+          <input type="email" id="email" name="email" ngModel class="form-control" required email>
+        </div>
       </div>
       <div class="form-group">
-        <label
-          for="name"
-          class="control-label">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          ngModel
-          class="form-control text-center"
-          required>
+        <label for="name" class="control-label col-sm-3">Name:</label>
+        <div class="col-sm-9">
+          <input type="text" id="name" name="name" ngModel class="form-control" required>
+        </div>
       </div>
       <div class="form-group">
-        <label
-          for="confirmPassword"
-          class="control-label">Maintenace User
-        <input
-          type="radio"
-          id="maintenanceUser"
-          name="userType"
-          ngModel
-          class="form-control text-center"
-          value="maintenanceUser"
-          checked="checked"
-          >
-        </label>
-          <label
-          for="confirmPassword"
-          class="control-label">Service User
-        <input
-          type="radio"
-          id="serviceUser"
-          name="userType"
-          ngModel
-          class="form-control text-center"
-          value="serviceUser"
-          >
-        </label>
+        <label class="control-label col-sm-3">Type:</label>
+        <div class="col-sm-9">
+          <label class="radio-inline">
+            <input type="radio" id="maintenanceUser" name="userType" ngModel value="maintenanceUser" checked="checked">
+            Maintenace User
+          </label>
+          <label class="radio-inline">
+            <input type="radio" id="serviceUser" name="userType" ngModel value="serviceUser">
+            Service User
+          </label>
+        </div>
       </div>
-      <button class="btn btn-primary" type="submit"
-              [disabled]="usrForm.invalid">Submit
-      </button>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button class="btn btn-primary" type="submit" [disabled]="usrForm.invalid">Submit</button>
+        </div>
+      </div>
     </form>
     <div class="loader" *ngIf="isLoading"></div>
   </div>
