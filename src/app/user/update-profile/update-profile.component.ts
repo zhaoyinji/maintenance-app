@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
 import { User } from '../user.model';
 
 @Component({
@@ -8,22 +9,24 @@ import { User } from '../user.model';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent implements OnInit {
+  @ViewChild('usrForm') form: NgForm;
   user: User = {};
 
-  constructor(private authService: AuthService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.authService.getSessionInfo().subscribe(
-      (session: any) => {
-        if (session != null) {
-          const payload = session.getIdToken().decodePayload();
-          console.log('payload:', payload['email']);
-          this.user.email = payload['email'];
-          this.user.username = payload['cognito:username'];
-        }
-      }
-    );
+    this.userService.getUserProfile();
+    this.userService.user.subscribe(user => this.user = user);
   }
 
+  onSubmit() {
+    const inputUser: User = {
+      username: this.user.username,
+      email: this.user.email,
+      name: this.form.value.name,
+      userType: this.user.userType
+    }
+    this.userService.updateUserProfile(inputUser);
+  }
 }

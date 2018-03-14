@@ -169,7 +169,7 @@ export class AuthService {
               observer.next(true);
               const payload = session.getIdToken().decodePayload();
               const groups: string[] = payload['cognito:groups'];
-              const superAdmin = groups.find((group) => group === 'SuperAdmin');
+              const superAdmin = groups !== undefined && groups.find((group) => group === 'SuperAdmin');
               if (superAdmin) {
                 this.isSuperAdmin.next(true);
               } else {
