@@ -9,6 +9,9 @@ import { User } from '../user.model';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent implements OnInit {
+  errorMessage = '';
+  actionSucceed = false;
+  isSending = false;
   @ViewChild('usrForm') form: NgForm;
   user: User = {};
 
@@ -16,11 +19,24 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.errorMessage.subscribe(
+      (errorMessage: string) => {
+        this.isSending = false;
+        this.errorMessage = errorMessage;
+      }
+    );
+    this.userService.actionSucceed.subscribe(
+      (actionSucceed: boolean) => {
+        this.isSending = false;
+        this.actionSucceed = actionSucceed;
+      }
+    );
     this.userService.getUserProfile();
     this.userService.user.subscribe(user => this.user = user);
   }
 
   onSubmit() {
+    this.isSending = true;
     const inputUser: User = {
       username: this.user.username,
       email: this.user.email,

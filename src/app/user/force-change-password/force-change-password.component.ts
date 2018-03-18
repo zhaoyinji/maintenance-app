@@ -4,11 +4,11 @@ import { NgForm } from '@angular/forms';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  selector: 'app-force-change-password',
+  templateUrl: './force-change-password.component.html',
+  styleUrls: ['./force-change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ForceChangePasswordComponent implements OnInit {
   @ViewChild('usrForm') form: NgForm;
   cognitoUser: CognitoUser;
   errorMessage = '';

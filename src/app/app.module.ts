@@ -9,7 +9,7 @@ import { SigninComponent } from './user/signin/signin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './user/auth.service';
 import { UserService } from './user/user.service';
-import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { ForceChangePasswordComponent } from './user/force-change-password/force-change-password.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
     AppComponent,
     CreateUserComponent,
     SigninComponent,
-    ChangePasswordComponent,
+    ForceChangePasswordComponent,
     UpdateProfileComponent
   ],
   imports: [

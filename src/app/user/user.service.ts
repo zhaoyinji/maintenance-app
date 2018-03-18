@@ -88,8 +88,7 @@ export class UserService {
   updateUserProfile(user: User): void {
     this.authService.getAuthenticatedUser().getSession((err, session) => {
       const userData = {
-        name: user.name,
-        userType: user.userType
+        name: user.name
       };
       const queryParam = '?accessToken=' + session.getAccessToken().getJwtToken();
       this.http.put(environment.apiUrl + '/users/my-profile' + queryParam, userData, {

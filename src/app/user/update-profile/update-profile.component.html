@@ -5,12 +5,12 @@
 </div>
 <div class="row" *ngIf="actionSucceed">
   <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 text-center">
-    <div class="alert alert-success">User created, confirm email has been sent</div>
+    <div class="alert alert-success">The changes have been saved</div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 well">
-    <form class="form-horizontal" (ngSubmit)="onSubmit()" #usrForm="ngForm" v-if="user">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3">
+    <form class="form-horizontal well" (ngSubmit)="onSubmit()" #usrForm="ngForm" v-if="user">
       <div class="form-group">
         <label for="username" class="control-label col-sm-3">Username:</label>
         <div class="col-sm-9">

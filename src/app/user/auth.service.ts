@@ -140,7 +140,7 @@ export class AuthService {
         // newPassword: password that user has given
         // attributesData: object with key as attribute name and value that the user has given.
         _this.unconfirmedUser.next(cognitoUser);
-        _this.router.navigate(['/change-password']);
+        _this.router.navigate(['/force-change-password']);
       }
     });
   }
