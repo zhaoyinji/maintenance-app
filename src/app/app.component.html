@@ -6,6 +6,7 @@
     <div class="navbar-default">
       <ul class="nav navbar-nav">
         <li *ngIf="isAuthenticated" routerLinkActive="active"><a routerLink="/update-profile">Profile</a></li>
+        <li *ngIf="isAuthenticated" routerLinkActive="active"><a routerLink="/update-password">Change password</a></li>
         <li *ngIf="!isAuthenticated" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Sign In</a></li>
         <li *ngIf="isSuperAdmin" routerLinkActive="active"><a routerLink="/create-user">Create user</a></li>
       </ul>

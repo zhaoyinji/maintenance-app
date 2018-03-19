@@ -28,6 +28,6 @@ export class ForceChangePasswordComponent implements OnInit {
   onSubmit() {
     const password = this.form.value.password;
     
-    this.authService.changePassword(password, this.cognitoUser);
+    this.authService.forceChangePassword(password, this.cognitoUser);
   }
 }

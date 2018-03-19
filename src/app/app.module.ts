@@ -11,6 +11,7 @@ import { AuthService } from './user/auth.service';
 import { UserService } from './user/user.service';
 import { ForceChangePasswordComponent } from './user/force-change-password/force-change-password.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
     CreateUserComponent,
     SigninComponent,
     ForceChangePasswordComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     BrowserModule,

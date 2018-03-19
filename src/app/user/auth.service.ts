@@ -87,7 +87,7 @@ export class AuthService {
     });
   }
 
-  changePassword(newPassword: string, cognitoUser: CognitoUser) {
+  forceChangePassword(newPassword: string, cognitoUser: CognitoUser) {
     this.authIsLoading.next(true);
     const _this = this;
     cognitoUser.completeNewPasswordChallenge(newPassword, [], {
@@ -98,6 +98,26 @@ export class AuthService {
         _this.onAuthFailed(err);
       }
     });
+  }
+
+  updatePassword(oldPassword: string, newPassword: string) {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser != null) {
+      cognitoUser.getSession((err, session) => {
+        if (err) {
+          this.errorMessage.next(err);
+          return;
+        }
+      });
+
+      cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
+        if (err) {
+          this.errorMessage.next(err.message);
+          return;
+        }
+        this.actionSucceed.next(true);
+      });
+    }
   }
 
   signIn(username: string, password: string): void {
