@@ -18,8 +18,7 @@ const userPool = new CognitoUserPool(POOL_DATA);
 
 @Injectable()
 export class AuthService {
-  authIsLoading = new BehaviorSubject<boolean>(false);
-  authDidFail = new BehaviorSubject<boolean>(false);
+  isLoading = new BehaviorSubject<boolean>(false);
   authStatusChanged = new Subject<boolean>();
   unconfirmedUser = new BehaviorSubject<CognitoUser>(null);
   errorMessage = new BehaviorSubject<string>('');
@@ -32,7 +31,7 @@ export class AuthService {
     private http: Http) {}
 
   signUp(username: string, email: string, password: string): void {
-    this.authIsLoading.next(true);
+    this.isLoading.next(true);
     const user: User = {
       username: username,
       email: email,
@@ -55,9 +54,9 @@ export class AuthService {
   }
 
   onAuthFailed(err: Error) {
-    this.authDidFail.next(true);
     this.errorMessage.next(err.message);
-    this.authIsLoading.next(false);
+    this.actionSucceed.next(false);
+    this.isLoading.next(false);
   }
 
   onAuthSuccess() {
@@ -66,12 +65,12 @@ export class AuthService {
   }
 
   onSuccess() {
-    this.authDidFail.next(false);
-    this.authIsLoading.next(false);
+    this.isLoading.next(false);
+    this.errorMessage.next('');
   }
 
   confirmUser(username: string, code: string) {
-    this.authIsLoading.next(true);
+    this.isLoading.next(true);
     const userData = {
       Username: username,
       Pool: userPool
@@ -88,7 +87,7 @@ export class AuthService {
   }
 
   forceChangePassword(newPassword: string, cognitoUser: CognitoUser) {
-    this.authIsLoading.next(true);
+    this.isLoading.next(true);
     const _this = this;
     cognitoUser.completeNewPasswordChallenge(newPassword, [], {
       onSuccess(result: CognitoUserSession) {
@@ -121,7 +120,7 @@ export class AuthService {
   }
 
   signIn(username: string, password: string): void {
-    this.authIsLoading.next(true);
+    this.isLoading.next(true);
     const authData = {
       Username: username,
       Password: password
@@ -160,6 +159,7 @@ export class AuthService {
         // newPassword: password that user has given
         // attributesData: object with key as attribute name and value that the user has given.
         _this.unconfirmedUser.next(cognitoUser);
+        _this.onSuccess();
         _this.router.navigate(['/force-change-password']);
       }
     });

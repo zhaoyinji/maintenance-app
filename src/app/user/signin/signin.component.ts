@@ -1,30 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgForm } from '@angular/forms';
+import { BaseForm } from '../../share/BaseForm';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent extends BaseForm implements OnInit {
   @ViewChild('usrForm') form: NgForm;
-  didFail = false;
-  isLoading = false;
-  errorMessage = '';
   constructor(private authService: AuthService) {
+    super();
   }
 
   ngOnInit() {
-    this.authService.authIsLoading.subscribe(
-      (isLoading: boolean) => this.isLoading = isLoading
-    );
-    this.authService.authDidFail.subscribe(
-      (didFail: boolean) => this.didFail = didFail
-    );
-    this.authService.errorMessage.subscribe(
-      (errorMessage: string) => this.errorMessage = errorMessage
-    );
+    this.authService.isLoading.subscribe((isLoading: boolean) => this.isLoading = isLoading);
+    this.authService.errorMessage.subscribe((errorMessage: string) => this.errorMessage = errorMessage);
   }
 
   onSubmit() {

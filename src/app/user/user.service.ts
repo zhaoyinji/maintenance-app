@@ -15,6 +15,7 @@ import { AuthService } from './auth.service';
 export class UserService {
   errorMessage = new BehaviorSubject<string>('');
   actionSucceed = new BehaviorSubject<boolean>(false);
+  isLoading = new BehaviorSubject<boolean>(false);
   user = new Subject<User>();
 
   constructor(
@@ -23,6 +24,7 @@ export class UserService {
     private http: Http) {}
 
   createUser(user: User): void {
+    this.isLoading.next(true);
     this.authService.getAuthenticatedUser().getSession((err, session) => {
       const userData = {
         username: user.username,
@@ -44,11 +46,15 @@ export class UserService {
             this.errorMessage.next(data.errorMessage);
             this.actionSucceed.next(false);
           } else {
+            this.errorMessage.next('');
             this.actionSucceed.next(true);
           }
+          this.isLoading.next(false);
         },
         (error) => {
           this.errorMessage.next(error.errorMessage);
+          this.actionSucceed.next(false);
+          this.isLoading.next(false);
         }
       );
     });
@@ -86,6 +92,7 @@ export class UserService {
   }
 
   updateUserProfile(user: User): void {
+    this.isLoading.next(true);
     this.authService.getAuthenticatedUser().getSession((err, session) => {
       const userData = {
         name: user.name
@@ -103,11 +110,15 @@ export class UserService {
             this.errorMessage.next(data.errorMessage);
             this.actionSucceed.next(false);
           } else {
+            this.errorMessage.next('');
             this.actionSucceed.next(true);
           }
+          this.isLoading.next(false);
         },
         (error) => {
           this.errorMessage.next(error.errorMessage);
+          this.actionSucceed.next(false);
+          this.isLoading.next(false);
         }
       );
     });

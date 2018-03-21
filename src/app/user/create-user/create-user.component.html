@@ -1,4 +1,4 @@
-<div class="row" *ngIf="errorMessage && !actionSucceed">
+<div class="row" *ngIf="errorMessage">
   <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 text-center">
     <div class="alert alert-danger">{{ errorMessage }}</div>
   </div>
@@ -9,29 +9,29 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3 well">
-    <form class="form-horizontal" (ngSubmit)="onSubmit()" #usrForm="ngForm">
+  <div class="col-xs-12 col-sm-10 col-md-6 cold-sm-offset-1 col-md-offset-3">
+    <form class="form-horizontal well" (ngSubmit)="onSubmit()" #usrForm="ngForm">
       <div class="form-group">
-        <label for="username" class="control-label col-sm-3">Username:</label>
-        <div class="col-sm-9">
+        <label for="username" class="control-label col-sm-4">Username:</label>
+        <div class="col-sm-8">
           <input type="text" id="username" name="username" ngModel class="form-control" required>
         </div>
       </div>
       <div class="form-group">
-        <label for="email" class="control-label col-sm-3">E-mail:</label>
-        <div class="col-sm-9">
+        <label for="email" class="control-label col-sm-4">E-mail:</label>
+        <div class="col-sm-8">
           <input type="email" id="email" name="email" ngModel class="form-control" required email>
         </div>
       </div>
       <div class="form-group">
-        <label for="name" class="control-label col-sm-3">Name:</label>
-        <div class="col-sm-9">
+        <label for="name" class="control-label col-sm-4">Name:</label>
+        <div class="col-sm-8">
           <input type="text" id="name" name="name" ngModel class="form-control" required>
         </div>
       </div>
       <div class="form-group">
-        <label class="control-label col-sm-3">Type:</label>
-        <div class="col-sm-9">
+        <label class="control-label col-sm-4">Type:</label>
+        <div class="col-sm-8">
           <label class="radio-inline">
             <input type="radio" id="maintenanceUser" name="userType" ngModel value="maintenanceUser" checked="checked">
             Maintenace User
@@ -43,11 +43,10 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-          <button class="btn btn-primary" type="submit" [disabled]="usrForm.invalid || isSending">Submit</button>
+        <div class="col-sm-offset-4 col-sm-8">
+          <button class="btn btn-primary" type="submit" [disabled]="usrForm.invalid || isSending">Submit <i class="loader" *ngIf="isLoading"></i></button>
         </div>
       </div>
     </form>
-    <div class="loader" *ngIf="isSending"></div>
   </div>
 </div>
