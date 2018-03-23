@@ -32,7 +32,7 @@
       <div class="form-group">
         <label class="control-label col-sm-4">Type:</label>
         <div class="col-sm-8">
-          <p class="form-control-static">{{ user.userType ===  'maintenanceUser' ? 'Maintenace User' : 'Service User'}}</p>
+          <p class="form-control-static">{{ isSuperAdmin ? 'Administrator' : user.userType ===  'maintenanceUser' ? 'Maintenace User' : 'Service User'}}</p>
         </div>
       </div>
       <div class="form-group">

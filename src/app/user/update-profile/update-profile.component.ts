@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../user.model';
 import { BaseForm } from '../../share/BaseForm';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -12,8 +13,10 @@ import { BaseForm } from '../../share/BaseForm';
 export class UpdateProfileComponent extends BaseForm implements OnInit {
   @ViewChild('usrForm') form: NgForm;
   user: User = {};
+  isSuperAdmin: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+    private authService: AuthService) {
     super();
   }
 
@@ -23,6 +26,7 @@ export class UpdateProfileComponent extends BaseForm implements OnInit {
     this.userService.actionSucceed.subscribe((actionSucceed: boolean) => this.actionSucceed = actionSucceed);
     this.userService.getUserProfile();
     this.userService.user.subscribe(user => this.user = user);
+    this.authService.isSuperAdmin.subscribe((isSuperAdmin) => this.isSuperAdmin = isSuperAdmin);
   }
 
   onSubmit() {
