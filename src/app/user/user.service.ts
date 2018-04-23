@@ -63,7 +63,7 @@ export class UserService {
   getUserProfile(): void {
     this.authService.getAuthenticatedUser().getSession((err, session) => {
       const queryParam = '?accessToken=' + session.getAccessToken().getJwtToken();
-      this.http.get(environment.apiUrl + '/users/my-profile' + queryParam, {
+      this.http.get(environment.apiUrl + '/my-profile' + queryParam, {
         headers: new Headers({'Authorization': session.getIdToken().getJwtToken()})
       })
       .map(
@@ -98,7 +98,7 @@ export class UserService {
         name: user.name
       };
       const queryParam = '?accessToken=' + session.getAccessToken().getJwtToken();
-      this.http.put(environment.apiUrl + '/users/my-profile' + queryParam, userData, {
+      this.http.put(environment.apiUrl + '/my-profile' + queryParam, userData, {
         headers: new Headers({'Authorization': session.getIdToken().getJwtToken()})
       })
       .map(
